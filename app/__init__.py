@@ -1,11 +1,14 @@
-from flask import Flask, render_template
+# all the import goodies
+from flask import Flask
+from flask.ext.sqlalchemy import SQLAlchemy
+
+# our app object
 app = Flask(__name__)
+# loading configs
+app.config.from_object('config')
+
+# defining db object
+db = SQLAlchemy(app)
 
 
-@app.route('/')
-def welcome():
-    return render_template('home.html')
-
-
-if __name__ == "__main__":
-    app.run()
+from app import views
