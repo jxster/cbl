@@ -48,3 +48,6 @@ docs/_build/
 
 #sftp configuration file
 sftp-config.json
+
+#instance / secret info
+instance/
