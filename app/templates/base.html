@@ -1,13 +1,18 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Chicago Basketball League</title>
-</head>
-<body>
-    
-    {% block content %}
-    {% endblock %}
+{% extends "bootstrap/base.html" %}
 
-</body>
-</html>
+
+{% block title %}Chicago Basketball League{% endblock %}
+{% block navbar %}
+<div class="navbar navbar-default" role="navigation">
+    <ul class="nav navbar-nav">
+        <li><a href="{{ url_for('main.home') }}">CBL Home</a></li>
+        <li><a href="{{ url_for('main.standings') }}">Standings</a></li>
+        {% for t in teams %}
+        <li><a href="{{ url_for('main.team', team=t.name) }}">{{ t.name }}</a></li>
+{% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+{% endblock %}

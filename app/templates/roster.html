@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="my_team">
+    {% for player in players %}
+    <div>
+        {{ player.name }} | {{ player.positions.all() }}
+    </div>   
+    {% endfor %}
+</div>
+{% endblock %}
+
+

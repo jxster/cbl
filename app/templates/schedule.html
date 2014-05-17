@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<table class="table table-striped">
+    <thead>
+        <th>Date</th>
+        <th>Home</th>
+        <th>Away</th>
+        <th>Court</th>
+    </thead>
+    <tbody>
+        {% for game in games %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
