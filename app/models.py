@@ -100,11 +100,11 @@ class Game(db.Model):
 
     # change to use **kwargs
     @staticmethod
-    def add_game(team1, team2, time):
+    def add_game(team1, team2, court, time):
         t1 = Team.query.filter_by(name=team1).first()
         t2 = Team.query.filter_by(name=team2).first()
         try:
-            game = Game(teams=[t1, t2],
+            game = Game(teams=[t1, t2], court=court,
                         date=datetime.strptime(time, "%m/%d/%Y %H:%M%p"))
         except AttributeError:
             print "A team didn't exist"
@@ -113,6 +113,8 @@ class Game(db.Model):
             db.session.add_all([t1, t2, game])
             db.session.commit()
 
+    # update to handle any number of game updates:
+    # e.g. time, date, scores, etc etc
     def update_game(self, winning_nm, win_scr, los_scr):
         try:
             assert int(win_scr) > int(los_scr)
@@ -131,6 +133,10 @@ class Game(db.Model):
             # everything went ok? finish the db actions
             db.session.add(game)
             db.session.commit()
+
+    # helper function for instances of games, used in team view
+    def get_opponent(self, teamid):
+        return self.teams.filter(Team.id != teamid).first().name
 
 
 class Gamelog(db.Model):

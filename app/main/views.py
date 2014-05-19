@@ -19,9 +19,14 @@ def standings():
 
 
 @main.route('/teams/<team>')
-def team(name):
-    players = Team.query.filter_by(name=name).first().players.all()
-    return render_template('roster.html', players=players)
+def team(team):
+    team = Team.query.filter_by(name=team).first()
+    games = team.games.all()
+    for g in games:
+        g.opponent = g.get_opponent(team.id)
+    players = team.players.all()
+    return render_template('team.html', players=players, games=games,
+                            id=team.id)
 
 
 @main.route('/schedule')

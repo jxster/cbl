@@ -3,17 +3,26 @@
 <table class="table table-striped">
     <thead>
         <th>Date</th>
-        <th>Home</th>
-        <th>Away</th>
-        <th>Court</th>
+        <th>Location</th>
+        <th>Team 1</th>
+        <th>Team 2</th>
+        <th>Result</th>
     </thead>
     <tbody>
         {% for game in games %}
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{ game.date}}</td>
+            <td>{{ game.court }}</td>
+            {% for t in game.teams.all() %}
+                <td>{{ t.name }}</td>
+            {% endfor %}
+            <td>
+                {% if game.win_id %}
+                    {{ game.teams.filter_by(id=game.win_id).first().name }} {{ game.win_scr }} - {{ game.los_scr}}
+                {% else %}
+                        -
+                {% endif %} 
+            </td>
         </tr>
         {% endfor %}
     </tbody>
