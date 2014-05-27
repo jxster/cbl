@@ -1,0 +1,20 @@
+$base-font: "Helvetica Neue", sans-serif;
+$nav-active-bg: #e7e7e7;
+
+.teams:hover {
+    background-color: $nav-active-bg;
+}
+
+.teams:hover > .dropdown-menu {
+    display: block;
+}
+
+#schedule {
+    float: right;
+    max-width: 40%;
+}
+
+#roster {
+    float: left;
+    max-width: 70%
+}

@@ -1,0 +1,21 @@
+/* line 4 */
+.teams:hover {
+  background-color: #e7e7e7;
+}
+
+/* line 8 */
+.teams:hover > .dropdown-menu {
+  display: block;
+}
+
+/* line 12 */
+#schedule {
+  float: right;
+  max-width: 40%;
+}
+
+/* line 17 */
+#roster {
+  float: left;
+  max-width: 70%;
+}

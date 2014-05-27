@@ -1,15 +1,22 @@
 {% extends "bootstrap/base.html" %}
-
-
+{% assets "style" %}
+    <link rel="stylesheet" href="{{ ASSET_URL }}" />
+{% endassets %}
 {% block title %}Chicago Basketball League{% endblock %}
+
 {% block navbar %}
 <div class="navbar navbar-default" role="navigation">
     <ul class="nav navbar-nav">
         <li><a href="{{ url_for('main.home') }}">CBL Home</a></li>
         <li><a href="{{ url_for('main.standings') }}">Standings</a></li>
-        {% for t in teams %}
-        <li><a href="{{ url_for('main.team', team=t.name) }}">{{ t.name }}</a></li>
-{% endfor %}
+        <li class="teams">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Teams</a>
+            <ul class="dropdown-menu">
+            {% for t in teams %}
+                <li><a href="{{ url_for('main.team', team_name=t.name) }}">{{ t.name }}</a></li>
+            {% endfor %}   
+            </ul>
+        </li>
     </ul>
 </div>
 {% endblock %}

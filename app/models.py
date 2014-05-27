@@ -25,6 +25,25 @@ class Player(db.Model):
                                 lazy='dynamic')
     gamelogs = db.relationship('Gamelog', backref='player', lazy='dynamic')
 
+    @staticmethod
+    def add_player(name, team, positions):
+        try:
+            player = Player.query.filter_by(name=name).first()
+            if player is None:
+                teamid = Team.query.filter_by(name=team).first().id
+                pos = []
+                for num in positions:
+                    pos.append(Position.query.filter_by(id=num).first())
+                assert teamid
+
+                player = Player(name=name, team_id=teamid, positions=pos)
+        except AssertionError:
+            print "Team didn't exist"
+            db.rollback()
+        else:
+            db.session.add(player)
+            db.session.commit()
+
     def __repr__(self):
         return '<Player %r>' % (self.name)
 
@@ -51,7 +70,7 @@ class Position(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return '%r' % (self.name)
+        return '%s' % (self.name)
 
 
 class Team(db.Model):
@@ -60,6 +79,7 @@ class Team(db.Model):
     name = db.Column(db.String(120), nullable=False)
     conference = db.Column(db.String(120), nullable=False)
     players = db.relationship('Player', backref='team', lazy='dynamic')
+    gm = db.Column(db.String(120), nullable=False)
 
     @hybrid_property
     def wins(self):
@@ -108,6 +128,7 @@ class Game(db.Model):
                         date=datetime.strptime(time, "%m/%d/%Y %H:%M%p"))
         except AttributeError:
             print "A team didn't exist"
+            db.rollback()
         else:
             # everything went ok? finish the db actions
             db.session.add_all([t1, t2, game])
@@ -127,8 +148,10 @@ class Game(db.Model):
             game.los_scr = int(los_scr)
         except AssertionError:
             print "Winning score gotta be higher, son"
+            db.rollback()
         except ValueError:
             print "You sure you entered numbers?"
+            db.rollback()
         else:
             # everything went ok? finish the db actions
             db.session.add(game)

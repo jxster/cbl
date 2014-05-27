@@ -2,7 +2,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% block title %}Teams{% endblock %}
 {% block content %}
-<div id="Standings" class="container-fluid">
+<div id="standings" class="container-fluid">
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -14,9 +14,13 @@
             </tr>
         </thead>
         <tbody>
-            {% for team in teams %}
             <tr>
-                <td>{{ team.name }}</td>
+                <td>Zhang Conference</td>
+            </tr>
+            {% for team in teams %}
+            {% if team.conference == 'Zhang' %}
+            <tr>
+                <td><a href="{{ url_for('main.team', team_name=team.name) }}">{{ team.name }}</a></td>
                 <td>{{ team.wins }}</td>
                 <td>{{ team.losses }}</td>
                 <td>
@@ -28,7 +32,26 @@
                 </td>
                 <td>0</td>
             </tr>
+            {% endif %}
             {% endfor %}
+            <tr>
+                <td>Pontoni Conference</td>
+            </tr>
+            {% for team in teams %}{% if team.conference == 'Pontoni' %}
+            <tr>
+                <td><a href="{{ url_for('main.team', team_name=team.name) }}">{{ team.name }}</a></td>
+                <td>{{ team.wins }}</td>
+                <td>{{ team.losses }}</td>
+                <td>
+                    {% if team.games.count() %}
+                    {{ team.wins / (team.wins + team.losses) }}
+                    {% else %}
+                    N/A
+                    {% endif %}
+                </td>
+                <td>0</td>
+            </tr>
+            {% endif %}{% endfor %}
         </tbody>
     </table>
 </div>

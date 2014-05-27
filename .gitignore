@@ -51,3 +51,9 @@ sftp-config.json
 
 #instance / secret info
 instance/
+
+#testing / mock data directory
+testing/
+
+#webassets
+.webassets-cache/

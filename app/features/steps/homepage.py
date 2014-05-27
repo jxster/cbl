@@ -3,9 +3,14 @@ def step_impl(context):
     context.browser.get(context.testserver)
 
 
-@then(u'I should see {this_content}')
-def step_impl(context, this_content):
-    br = context.browser
-    br.get(context.testserver)
-    content = br.find_element_by_id(this_content)
-    assert len(content.text) > 0
+@then(u'I should see standings on the sidebar')
+def step_impl(context):
+    soup = context.parse_soup()
+    # content = br.find_element_by_id('standings')
+    assert len(soup.find(id="standings")) > 0
+
+
+@then(u'I should see recent games')
+def step_impl(context):
+    soup = context.parse_soup()
+    assert len(soup.find(id="recent-games")) > 0

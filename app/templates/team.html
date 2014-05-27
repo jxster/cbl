@@ -1,5 +1,30 @@
 {% extends "base.html" %}
+{% block title %}{{ name }}{% endblock %}
 {% block content %}
+
+<div id="roster">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Roster</th>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>Positions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in players %}
+            <tr>
+                <td> {{ p.name }}</td>
+                <td>
+                    {{ p.positions.all()|join(', ') }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 <div id="schedule" class="container-fluid">
     <table class="table table-striped table-hover">
         <thead>
@@ -33,13 +58,4 @@
         </tbody>
     </table>
 </div>
-<div id="my_team">
-    {% for player in players %}
-    <div>
-        {{ player.name }} | {{ player.positions.all() }}
-    </div>   
-    {% endfor %}
-</div>
 {% endblock %}
-
-
