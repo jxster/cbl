@@ -6,20 +6,45 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Roster</th>
+                <th>Season Stats</th>
             </tr>
             <tr>
                 <th>Name</th>
-                <th>Positions</th>
+                <th>2pt Attempts</th>
+                <th>2pt Makes</th>
+                <th>3pt Attempts</th>
+                <th>3pt Makes</th>
+                <th>3pt %</th>
+                <th>Total Field Goal %</th>
+                <th>Points</th>
+                <th>Rebounds</th>
+                <th>Assists</th>
+                <th>Steals</th>
+                <th>Blocks</th>
+                <th>Turnovers</th>
             </tr>
         </thead>
         <tbody>
             {% for p in players %}
             <tr>
-                <td> {{ p.name }}</td>
+                <td>{{ p.name }}</td>
+                <td>{{ p.fga }}</td>
+                <td>{{ p.fgm }}</td>
+                <td>{{ p.threes_a }}</td>
+                <td>{{ p.threes_m }}</td>
                 <td>
-                    {{ p.positions.all()|join(', ') }}
+                {% set three = p.threes_m / p.threes_a  * 100 if p.threes_a > 0 else 0 %}
+                {{ '%0.2f' | format(three) }}
                 </td>
+                <td>{%set percent = (p.fgm + p.threes_m) / (p.fga + p.threes_a) * 100 if (p.fga + p.threes_a) > 0 else 0 %}
+                {{ '%0.2f' | format(percent) }}
+                </td>
+                <td>{{ 1*p.fgm + 2*p.threes_m }}</td>
+                <td>{{ p.rebs }}</td>
+                <td>{{ p.asts }}</td>
+                <td>{{ p.stls }}</td>
+                <td>{{ p.blks }}</td>
+                <td>{{ p.tos }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -29,7 +54,7 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Location</th>
+                <th>Court</th>
                 <th>Time</th>
                 <th>Opponent</th>
                 <th>Score</th>

@@ -35,9 +35,15 @@ def populate():
                                     conference=t['conference'],
                                     gm=t['gm']))
         populate_teams(team_models)
-    populate_players()
-    populate_games()
 
+    with app.open_resource('./testing/data/players.json') as playerdata:
+        player_dict = json.load(playerdata)['players']
+        for p in player_dict:
+            Player.add_player(name=p['name'],
+                              team=p['team'],
+                              positions=p['positions'])
+    populate_games()
+#    populate_stats()
 
 def make_shell_context():
     return dict(app=app, db=db, Player=Player, Position=Position,
@@ -49,27 +55,21 @@ def populate_teams(teams=None):
     db.session.commit()
 
 
-def populate_players(teams=None, players=None):
-    if teams is None:
-        teams = Team.query.all()
-
-    if players is None:
-        players = ['Jack Li', 'Taotao Zhang', 
-                   'Justin Choi', 'Yilei Yang',
-                   'Tony Lian', 'YJ Gahng',
-                   'Wayne Tie', 'Ruben Ornelas',
-                   'Jesse Smith', 'Keenan Pontoni',
-                   'Saul Vaca', 'James McGhee']
-
-    while len(players) > 0:
-        for t in teams:
-            if len(players) > 0:
-                Player.add_player(players.pop(), t.name, [3,4])
-
-
-
 def populate_games():
-    pass
+    with app.open_resource('./testing/data/games.json') as gamedata:
+        games = json.load(gamedata)['games']
+        for g in games:
+            Game.add_game(teams=g['teams'],
+                          court=int(g['court']),
+                          time=g['time'])
+            scrs = g['score'].split(' ')
+            Game.update_game(int(g['court']), g['time'],
+                             g['winner'], scrs[0], scrs[1])
+
+
+def populate_stats():
+    with app.open_resource('./test/data/logs.json') as statsdata:
+        pass
 
 
 manager.add_command("shell", Shell(make_context=make_shell_context))
