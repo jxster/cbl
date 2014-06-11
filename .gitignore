@@ -57,3 +57,6 @@ testing/
 
 #webassets
 .webassets-cache/
+
+#static assets
+player-images/

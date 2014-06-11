@@ -12,8 +12,8 @@
         <li class="teams">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Teams</a>
             <ul class="dropdown-menu">
-            {% for t in teams %}
-                <li><a href="{{ url_for('main.team', team_name=t.name) }}">{{ t.name }}</a></li>
+            {% for name in teamnames|sort() %}
+                <li><a href="{{ url_for('main.team', team_name=name) }}">{{ name }}</a></li>
             {% endfor %}   
             </ul>
         </li>

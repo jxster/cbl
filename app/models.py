@@ -19,6 +19,12 @@ class Player(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), index=True, nullable=False)
     team_id = db.Column(db.Integer, db.ForeignKey('teams.id'))
+    yrs_in_cbl = db.Column(db.Integer)
+    height = db.Column(db.String(30), nullable=False)
+    weight = db.Column(db.Integer, nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    nbr = db.Column(db.Integer)
+    quote = db.Column(db.String(150))
     positions = db.relationship('Position',
                                 secondary=player_pos,
                                 backref=db.backref('players', lazy='dynamic'),
@@ -107,7 +113,8 @@ class Player(db.Model):
                 where(Player.id == cls.id)
 
     @staticmethod
-    def add_player(name, team, positions):
+    def add_player(name, team, positions, yrs_in_cbl=1,
+                   height=None, weight=0, age=0, nbr=0):
         try:
             player = Player.query.filter_by(name=name).first()
             if player is None:
@@ -116,8 +123,9 @@ class Player(db.Model):
                 for num in positions:
                     pos.append(Position.query.filter_by(id=num).first())
                 assert teamid
-
-                player = Player(name=name, team_id=teamid, positions=pos)
+                player = Player(name=name, team_id=teamid, positions=pos,
+                                yrs_in_cbl=int(yrs_in_cbl), height=str(height),
+                                weight=int(weight), age=int(age), nbr=int(nbr))
         except AssertionError:
             print "Team didn't exist"
             db.rollback()
@@ -267,10 +275,14 @@ class Gamelog(db.Model):
     starter = db.Column(db.Boolean, default=False)
 
     @staticmethod
-    def add_gamestats(date, name, fga, fgm, threesa, threesm,
-                      rebs, asts, stls, blks, tos, start):
+    def add_gamestats(date=0, name=0, fga=0,
+                      fgm=0, threesa=0, threesm=0,
+                      rebs=0, asts=0, stls=0, blks=0, tos=0, start=False):
         try:
-            assert fga > fgm, threesa > threesm
+            if fga > 0:
+                assert fga >= fgm
+            if threesa > 0:
+                assert threesa >= threesm
             player = Player.query.filter_by(name=name).first()
             team = Team.query.filter_by(id=player.team_id).first()
             game_id = team.games.filter_by(date=datetime.strptime(date,
@@ -293,3 +305,10 @@ class Gamelog(db.Model):
         else:
             db.session.add(log)
             db.session.commit()
+
+    def get_date(self):
+        return Game.query.filter_by(id=self.gid).first().date
+
+    def get_opponent(self):
+        return Game.query.filter_by(id=self.gid).first() \
+            .get_opponent(Player.query.filter_by(id=self.pid).first().team_id)

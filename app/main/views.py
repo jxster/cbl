@@ -7,8 +7,8 @@ from ..models import Player, Position, Team, Game
 
 @main.route('/')
 def home():
-    teams = Team.query.all()
-    return render_template('home.html', teams=teams)
+    teamnames = [team.name for team in Team.query.all()]
+    return render_template('home.html', teamnames=teamnames)
 
 
 @main.route('/standings')
@@ -33,3 +33,9 @@ def team(team_name):
 def schedule():
     games = Game.query.all()
     return render_template('schedule.html', games=games)
+
+
+@main.route('/players/<player>')
+def player(player):
+    playerobj = Player.query.filter_by(name=player).first()
+    return render_template('player.html', player=playerobj)

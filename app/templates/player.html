@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid player">
+    <div id="player-image">
+        
+        <img src="{{ url_for('static', filename='assets/player-images/%s.png' % player.name|lower) }}" alt="image of {{ player.name }}">
+        
+    </div>
+    <div id="player-bio">
+        <h1>{{ player.name }}</h1>
+        <div class="player-info">
+            <ul>
+                <li>Height: {{ player.height }}</li>
+                <li>Weight: {{ player.weight }}</li>
+                <li>Age: {{ player.age }}</li>
+                <li>Preferred Number: {{ player.nbr }}</li>
+                <li>{{ player.quote }}</li>
+                <li>Years in CBL: {{ player.yrs_in_cbl }}</li>
+            </ul>
+        </div>
+        {% if player.gamelogs.count() > 0 %} 
+            <div class="bio-stats">
+                <ul>
+                    <li class="ppg">PPG {{ (player.fgm + 2*player.threes_m) / player.gamelogs.count() }} </li>
+                    <li class="apg">APG {{ player.asts / player.gamelogs.count() }}</li>
+                    <li class="fgpercent">
+                        {%set fgper = (player.fgm + player.threes_m) / (player.fga + player.threes_a) * 100 if (player.fga + player.threes_a) > 0 else 0 %}
+                        FG % {{ '%0.2f' |format(fgper)}}
+                    </li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</div>
+<div class="container-fluid stats">
+    <table class="table table-striped">
+        <caption class="Text-Left">Game Logs</caption>
+        <thead>
+            <tr>
+                <th>Game</th>
+                <th>2pt attempts</th>
+                <th>2pt makes</th>
+                <th>3pt attempts</th>
+                <th>3pt makes</th>
+                <th>FG %</th>
+                <th>Points</th>
+                <th>Rebounds</th>
+                <th>Assists</th>
+                <th>Steals</th>
+                <th>Blocks</th>
+                <th>TO</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for g in player.gamelogs.all() %}
+            <tr>
+                <td>{{ g.get_date() }} vs. {{ g.get_opponent() }}</td>
+                <td>{{ g.fga }}</td>
+                <td>{{ g.fgm }}</td>
+                <td>{{ g.threes_a }}</td>
+                <td>{{ g.threes_m }}</td>
+                <td>{%set percent = (g.fgm + g.threes_m) / (g.fga + g.threes_a) * 100 if (g.fga + g.threes_a) > 0 else 0 %}
+                {{ '%0.2f' | format(percent) }}</td>
+                <td>{{ g.fgm + 2*g.threes_m }}</td>
+                <td>{{ g.rebs }}</td>
+                <td>{{ g.asts}}</td>
+                <td>{{ g.stls }}</td>
+                <td>{{ g.blks }}</td>
+                <td>{{ g.tos }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

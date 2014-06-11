@@ -27,7 +27,7 @@
         <tbody>
             {% for p in players %}
             <tr>
-                <td>{{ p.name }}</td>
+                <td><a href="{{ url_for('main.player', player=p.name )}}">{{ p.name }}</a></td>
                 <td>{{ p.fga }}</td>
                 <td>{{ p.fgm }}</td>
                 <td>{{ p.threes_a }}</td>
@@ -39,7 +39,7 @@
                 <td>{%set percent = (p.fgm + p.threes_m) / (p.fga + p.threes_a) * 100 if (p.fga + p.threes_a) > 0 else 0 %}
                 {{ '%0.2f' | format(percent) }}
                 </td>
-                <td>{{ 1*p.fgm + 2*p.threes_m }}</td>
+                <td>{{ p.fgm + 2*p.threes_m }}</td>
                 <td>{{ p.rebs }}</td>
                 <td>{{ p.asts }}</td>
                 <td>{{ p.stls }}</td>

@@ -27,6 +27,7 @@ def create_app(config_name):
         'style',
         Bundle(
             'style.scss',
+            'player.scss',
             filters='scss',
             output='style.css'
         )

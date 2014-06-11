@@ -43,7 +43,7 @@ def populate():
                               team=p['team'],
                               positions=p['positions'])
     populate_games()
-#    populate_stats()
+    populate_stats()
 
 def make_shell_context():
     return dict(app=app, db=db, Player=Player, Position=Position,
@@ -68,8 +68,13 @@ def populate_games():
 
 
 def populate_stats():
-    with app.open_resource('./test/data/logs.json') as statsdata:
-        pass
+    with app.open_resource('./testing/data/stats.json') as statsdata:
+        games_dict = json.load(statsdata)['gamelogs']
+        for g in games_dict:
+            Gamelog.add_gamestats(date=g['date'], name=g['name'], fga=g['fga'],
+                                  fgm=g['fgm'], threesa=g['3pt_a'], threesm=g['3pt_m'],
+                                  rebs=g['rebs'], asts=g['asts'], stls=g['stls'],
+                                  blks=g['blks'], tos=g['tos'], start=g['start'])
 
 
 manager.add_command("shell", Shell(make_context=make_shell_context))
