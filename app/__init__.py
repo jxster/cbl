@@ -16,6 +16,10 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
     env = Environment(app)
 
+    if not app.debug and not app.testing and not app.config['SSL_DISABLE']:
+        from flask.ext.sslify import SSLify
+        sslify = SSLify(app)
+
     # tell flask-assets where to look
     env.load_path = [
         os.path.join(os.path.dirname(__file__), 'bower_components'),

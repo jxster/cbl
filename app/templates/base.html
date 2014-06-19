@@ -6,9 +6,12 @@
 
 {% block navbar %}
 <div class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand"href="{{ url_for('main.home') }}">CBL</a>
+    </div>
     <ul class="nav navbar-nav">
-        <li><a href="{{ url_for('main.home') }}">CBL Home</a></li>
         <li><a href="{{ url_for('main.standings') }}">Standings</a></li>
+        <li><a href="{{ url_for('main.schedule') }}">Schedule</a></li>
         <li class="teams">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Teams</a>
             <ul class="dropdown-menu">
@@ -17,6 +20,9 @@
             {% endfor %}   
             </ul>
         </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Login</a></li>
     </ul>
 </div>
 {% endblock %}

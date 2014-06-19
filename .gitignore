@@ -60,3 +60,6 @@ testing/
 
 #static assets
 player-images/
+
+#heroku env file
+.env
