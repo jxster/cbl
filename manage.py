@@ -6,6 +6,14 @@ import json
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
+if os.path.exists('.env'):
+    print('Importing environment from .env...')
+    for line in open('.env'):
+        var = line.strip().split('=')
+        if len(var) == 2:
+            os.environ[var[0]] = var[1]
+
+
 from flask.ext.script import Manager, Server, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
 from app import create_app, db
@@ -18,11 +26,18 @@ migrate = Migrate(app, db)
 
 
 @manager.command
+def deploy():
+    """Run deployment tasks."""
+    from flask.ext.migrate import upgrade
+    # migrate database to latest revision
+    upgrade()
+
+
+@manager.command
 def create_tbls():
     if os.path.exists('dev-db.sqlite'):
         db.drop_all()
     db.create_all()
-    populate()
 
 
 @manager.command
