@@ -19,11 +19,11 @@
                 <li>Years in CBL: {{ player.yrs_in_cbl }}</li>
             </ul>
         </div>
-        {% if player.gamelogs.count() > 0 %} 
+        {% if player.gamelogs|length > 0 %} 
             <div class="bio-stats">
                 <ul>
-                    <li class="ppg">PPG {{ (player.fgm + 2*player.threes_m) / player.gamelogs.count() }} </li>
-                    <li class="apg">APG {{ player.asts / player.gamelogs.count() }}</li>
+                    <li class="ppg">PPG {{ (player.fgm + 2*player.threes_m) / player.gamelogs|length }} </li>
+                    <li class="apg">APG {{ player.asts / player.gamelogs|length }}</li>
                     <li class="fgpercent">
                         {%set fgper = (player.fgm + player.threes_m) / (player.fga + player.threes_a) * 100 if (player.fga + player.threes_a) > 0 else 0 %}
                         FG % {{ '%0.2f' |format(fgper)}}
@@ -53,7 +53,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for g in player.gamelogs.all() %}
+            {% for g in player.gamelogs %}
             <tr>
                 <td>{{ g.get_date() }} vs. {{ g.get_opponent() }}</td>
                 <td>{{ g.fga }}</td>

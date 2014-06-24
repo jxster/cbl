@@ -4,11 +4,15 @@ from . import main
 from .. import db
 from ..models import Player, Position, Team, Game
 
+@main.context_processor
+def provide_teamnames():
+    teamnames = [team.name for team in Team.query.all()]
+    return dict(teamnames=teamnames)
+
 
 @main.route('/')
 def home():
-    teamnames = [team.name for team in Team.query.all()]
-    return render_template('home.html', teamnames=teamnames)
+    return render_template('home.html')
 
 
 @main.route('/standings')

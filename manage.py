@@ -17,7 +17,7 @@ if os.path.exists('.env'):
 from flask.ext.script import Manager, Server, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
 from app import create_app, db
-from app.models import Player, Position, Team, Game, Gamelog
+from app.models import Player, Position, Team, Game, Gamelog, Player_Season
 
 #TODO: add different options
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
@@ -48,30 +48,27 @@ def populate():
         team_dict = json.load(teamdata)['teams']
         team_models = []
         for t in team_dict:
-            team_models.append(Team(name=t['name'],
-                                    conference=t['conference'],
-                                    gm=t['gm']))
-        populate_teams(team_models)
+            Team.add_team(name=t['name'],
+                          conference=t['conference'],
+                          gm=t['gm'],
+                          season=2014)
 
     with app.open_resource('./testing/data/players.json') as playerdata:
         player_dict = json.load(playerdata)['players']
         for p in player_dict:
             Player.add_player(name=p['name'],
-                              team=p['team'],
-                              positions=p['positions'])
+                              positions=p['positions'],
+                              team=p['team'])
+            Player_Season
     populate_games()
     populate_stats()
 
 def make_shell_context():
     return dict(app=app, db=db, Player=Player, Position=Position,
-                Team=Team, Game=Game, Gamelog=Gamelog)
+                Team=Team, Game=Game, Gamelog=Gamelog, 
+                Player_Season=Player_Season)
 
-
-def populate_teams(teams=None):
-    db.session.add_all(teams)
-    db.session.commit()
-
-
+    
 def populate_games():
     with app.open_resource('./testing/data/games.json') as gamedata:
         games = json.load(gamedata)['games']

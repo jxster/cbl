@@ -37,7 +37,7 @@ def create_app(config_name):
         )
     )
 
-    #TODO: implemeent config_from_pyfile / instance configs
+    #TODO: implement config_from_pyfile / instance configs
     #app.config.from_pyfile('config.py')
     env.init_app(app)
     bootstrap.init_app(app)
