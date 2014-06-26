@@ -20,6 +20,12 @@ def create_app(config_name):
         from flask.ext.sslify import SSLify
         sslify = SSLify(app)
 
+    #TODO: implement config_from_pyfile / instance configs
+    #app.config.from_pyfile('config.py')
+    env.init_app(app)
+    bootstrap.init_app(app)
+    db.init_app(app)
+
     # tell flask-assets where to look
     env.load_path = [
         os.path.join(os.path.dirname(__file__), 'bower_components'),
@@ -32,16 +38,15 @@ def create_app(config_name):
         Bundle(
             'style.scss',
             'player.scss',
+            'team.scss',
             filters='scss',
             output='style.css'
         )
     )
 
-    #TODO: implement config_from_pyfile / instance configs
-    #app.config.from_pyfile('config.py')
-    env.init_app(app)
-    bootstrap.init_app(app)
-    db.init_app(app)
+    @app.template_filter('datetime')
+    def format_gametime(value):
+        return value.strftime('%m.%d.%Y %H:%M%p')
 
     from main import main as main_blueprint
     app.register_blueprint(main_blueprint)

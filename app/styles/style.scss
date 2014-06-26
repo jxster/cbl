@@ -1,5 +1,5 @@
 $base-font: "Helvetica Neue", sans-serif;
-$nav-active-bg: #e7e7e7;
+$nav-active-bg: #973333;
 $bgDefault      : #7d0101;
 $bgHighlight    : #610000;
 $colDefault     : #f6eded;
@@ -61,12 +61,6 @@ $colHighlight   : #ffffff;
     display: block;
 }
 
-#schedule {
-    float: right;
-    max-width: 40%;
-}
-
-#roster {
-    float: left;
-    max-width: 70%
+.navbar {
+    border-radius: 0;
 }

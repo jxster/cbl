@@ -1,86 +1,92 @@
 {% extends "base.html" %}
 {% block title %}{{ name }}{% endblock %}
 {% block content %}
-
-<div id="roster">
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Season Stats</th>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <th>2pt Attempts</th>
-                <th>2pt Makes</th>
-                <th>3pt Attempts</th>
-                <th>3pt Makes</th>
-                <th>3pt %</th>
-                <th>Total Field Goal %</th>
-                <th>Points</th>
-                <th>Rebounds</th>
-                <th>Assists</th>
-                <th>Steals</th>
-                <th>Blocks</th>
-                <th>Turnovers</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for p in players %}
-            <tr>
-                <td><a href="{{ url_for('main.player', player=p.name )}}">{{ p.name }}</a></td>
-                <td>{{ p.fga }}</td>
-                <td>{{ p.fgm }}</td>
-                <td>{{ p.threes_a }}</td>
-                <td>{{ p.threes_m }}</td>
-                <td>
-                {% set three = p.threes_m / p.threes_a  * 100 if p.threes_a > 0 else 0 %}
-                {{ '%0.2f' | format(three) }}
-                </td>
-                <td>{%set percent = (p.fgm + p.threes_m) / (p.fga + p.threes_a) * 100 if (p.fga + p.threes_a) > 0 else 0 %}
-                {{ '%0.2f' | format(percent) }}
-                </td>
-                <td>{{ p.fgm + 2*p.threes_m }}</td>
-                <td>{{ p.rebs }}</td>
-                <td>{{ p.asts }}</td>
-                <td>{{ p.stls }}</td>
-                <td>{{ p.blks }}</td>
-                <td>{{ p.tos }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="team-hero container-fluid">
+    <h1>{{ name }}</h1>
 </div>
-<div id="schedule" class="container-fluid">
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Court</th>
-                <th>Time</th>
-                <th>Opponent</th>
-                <th>Score</th>
-            </tr>
-        </thead>
+<div class="container-fluid">
+    <div class="row">
+        <div class="roster col-md-8">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th colspan=2>Season Stats</th>
+                    </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>2pt Attempts</th>
+                        <th>2pt Makes</th>
+                        <th>3pt Attempts</th>
+                        <th>3pt Makes</th>
+                        <th>3pt %</th>
+                        <th>FG %</th>
+                        <th>Points</th>
+                        <th>Rebounds</th>
+                        <th>Assists</th>
+                        <th>Steals</th>
+                        <th>Blocks</th>
+                        <th>Turnovers</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in players %}
+                    <tr>
+                        <td><a href="{{ url_for('main.player', player=p.name )}}">{{ p.name }}</a></td>
+                        <td>{{ p.fga }}</td>
+                        <td>{{ p.fgm }}</td>
+                        <td>{{ p.threes_a }}</td>
+                        <td>{{ p.threes_m }}</td>
+                        <td>
+                        {% set three = p.threes_m / p.threes_a  * 100 if p.threes_a > 0 else 0 %}
+                        {{ '%0.2f' | format(three) }}
+                        </td>
+                        <td>{%set percent = (p.fgm + p.threes_m) / (p.fga + p.threes_a) * 100 if (p.fga + p.threes_a) > 0 else 0 %}
+                        {{ '%0.2f' | format(percent) }}
+                        </td>
+                        <td>{{ p.fgm + 2*p.threes_m }}</td>
+                        <td>{{ p.rebs }}</td>
+                        <td>{{ p.asts }}</td>
+                        <td>{{ p.stls }}</td>
+                        <td>{{ p.blks }}</td>
+                        <td>{{ p.tos }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="schedule col-md-4">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Court</th>
+                        <th>Time</th>
+                        <th>Opponent</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
 
-        <tbody>
-            {% for game in games %}
-            <tr>
-                <td>{{ game.court }}</td>
-                <td>{{ game.date }}</td>
-                <td>{{ game.opponent }}</td>
-                <td>
-                    {% if game.win_id %}
-                        {% if game.win_id == id %}
-                        W {{ game.win_scr }} - {{ game.los_scr}}
-                        {% elif game.win_id != id %}
-                        L {{ game.los_scr }} - {{ game.win_scr }}
-                        {% endif %}
-                    {% else %}
-                        -
-                    {% endif %} 
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                <tbody>
+                    {% for game in games %}
+                    <tr>
+                        <td>{{ game.court }}</td>
+                        <td>{{ game.date }}</td>
+                        <td>{{ game.opponent }}</td>
+                        <td>
+                            {% if game.win_id %}
+                                {% if game.win_id == id %}
+                                W {{ game.win_scr }} - {{ game.los_scr}}
+                                {% elif game.win_id != id %}
+                                L {{ game.los_scr }} - {{ game.win_scr }}
+                                {% endif %}
+                            {% else %}
+                                -
+                            {% endif %} 
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

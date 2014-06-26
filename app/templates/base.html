@@ -1,7 +1,10 @@
 {% extends "bootstrap/base.html" %}
+{% block styles %}
+{{ super() }}
 {% assets "style" %}
     <link rel="stylesheet" href="{{ ASSET_URL }}" />
 {% endassets %}
+{% endblock %}
 {% block title %}Chicago Basketball League{% endblock %}
 
 {% block navbar %}

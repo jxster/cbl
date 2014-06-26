@@ -4,6 +4,7 @@ from . import main
 from .. import db
 from ..models import Player, Position, Team, Game
 
+
 @main.context_processor
 def provide_teamnames():
     teamnames = [team.name for team in Team.query.all()]

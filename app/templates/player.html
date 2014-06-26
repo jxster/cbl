@@ -2,35 +2,36 @@
 
 {% block content %}
 <div class="container-fluid player">
-    <div id="player-image">
-        
-        <img src="{{ url_for('static', filename='assets/player-images/%s.png' % player.name|lower) }}" alt="image of {{ player.name }}">
-        
-    </div>
-    <div id="player-bio">
-        <h1>{{ player.name }}</h1>
-        <div class="player-info">
-            <ul>
-                <li>Height: {{ player.height }}</li>
-                <li>Weight: {{ player.weight }}</li>
-                <li>Age: {{ player.age }}</li>
-                <li>Preferred Number: {{ player.nbr }}</li>
-                <li>{{ player.quote }}</li>
-                <li>Years in CBL: {{ player.yrs_in_cbl }}</li>
-            </ul>
+    <div class="row">
+        <div id="player-image" class="col-md-6">
+            
+            <img src="{{ url_for('static', filename='assets/player-images/%s.png' % player.name|lower) }}" alt="image of {{ player.name }}">
+            
         </div>
-        {% if player.gamelogs|length > 0 %} 
-            <div class="bio-stats">
+        <div id="player-bio" class="col-md-6">
+            <h1>{{ player.name }}</h1>
+            <div class="player-info">
                 <ul>
-                    <li class="ppg">PPG {{ (player.fgm + 2*player.threes_m) / player.gamelogs|length }} </li>
-                    <li class="apg">APG {{ player.asts / player.gamelogs|length }}</li>
-                    <li class="fgpercent">
-                        {%set fgper = (player.fgm + player.threes_m) / (player.fga + player.threes_a) * 100 if (player.fga + player.threes_a) > 0 else 0 %}
-                        FG % {{ '%0.2f' |format(fgper)}}
-                    </li>
+                    <li>Height: {{ player.height }}</li>
+                    <li>Weight: {{ player.weight }}</li>
+                    <li>Age: {{ player.age }}</li>
+                    <li>Preferred Number: {{ player.nbr }}</li>
+                    <li>Years in CBL: {{ player.yrs_in_cbl }}</li>
                 </ul>
             </div>
-        {% endif %}
+            {% if player.gamelogs|length > 0 %} 
+                <div class="bio-stats">
+                    <ul>
+                        <li class="ppg">PPG {{ (player.fgm + 2*player.threes_m) / player.gamelogs|length }} </li>
+                        <li class="apg">APG {{ player.asts / player.gamelogs|length }}</li>
+                        <li class="fgpercent">
+                            {%set fgper = (player.fgm + player.threes_m) / (player.fga + player.threes_a) * 100 if (player.fga + player.threes_a) > 0 else 0 %}
+                            FG % {{ '%0.2f' |format(fgper)}}
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
     </div>
 </div>
 <div class="container-fluid stats">
@@ -55,7 +56,7 @@
         <tbody>
             {% for g in player.gamelogs %}
             <tr>
-                <td>{{ g.get_date() }} vs. {{ g.get_opponent() }}</td>
+                <td>{{ g.get_date()|datetime }} <b>{{ g.get_team() }}</b> vs. {{ g.get_opponent() }}</td>
                 <td>{{ g.fga }}</td>
                 <td>{{ g.fgm }}</td>
                 <td>{{ g.threes_a }}</td>

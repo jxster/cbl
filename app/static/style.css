@@ -76,7 +76,7 @@
 }
 /* line 56 */
 .teams:hover {
-  background-color: #e7e7e7;
+  background-color: #973333;
 }
 
 /* line 60 */
@@ -85,37 +85,31 @@
 }
 
 /* line 64 */
-#schedule {
-  float: right;
-  max-width: 40%;
-}
-
-/* line 69 */
-#roster {
-  float: left;
-  max-width: 70%;
+.navbar {
+  border-radius: 0;
 }
 
 /* line 1 */
-#player-image {
-  float: left;
-  max-width: 50%;
-  max-height: 40%;
-}
-
-/* line 7 */
 #player-image img {
   max-width: 100%;
   max-height: 100%;
+  border-radius: 50%;
+  border: .2em solid #7d0101;
 }
 
-/* line 12 */
-#player-bio {
-  float: right;
-  max-width: 40%;
-}
-
-/* line 17 */
+/* line 8 */
 .stats > table > caption {
   font-size: 2em;
+}
+
+/* line 1 */
+.roster {
+  float: left;
+  font-size: 1vmax;
+}
+
+/* line 6 */
+.schedule {
+  float: right;
+  font-size: .9vmax;
 }

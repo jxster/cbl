@@ -137,7 +137,7 @@ class Player(db.Model):
         if team is None:
             pass
         else:
-            teamId = Team.query.filter_by(name=team).first().id
+            teamid = Team.query.filter_by(name=team).first().id
 
         if player is None:
             pos = []
@@ -150,7 +150,8 @@ class Player(db.Model):
             db.session.add(player)
             db.session.commit()
 
-        if teamid > 0: Player_Season.add_season(name, team)
+        if teamid > 0:
+            Player_Season.add_season(name, team)
 
     def trade(self, new_team):
         try:
@@ -466,5 +467,8 @@ class Gamelog(db.Model):
     def get_date(self):
         return Game.query.filter_by(id=self.gid).first().date
 
+    def get_team(self):
+        return Team.query.filter_by(id=self.teamid).first().name
+        
     def get_opponent(self):
         return Game.query.filter_by(id=self.gid).first().get_opponent(self.teamid)
