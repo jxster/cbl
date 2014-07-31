@@ -1,8 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="home-content container-fluid">
-    <div id="recent-games">This is where you'll be able to view recent juegos</div>
-    <div id="standings">This is where the standings will go</div>
+<div class="main-content">
+    <div class="container">
+        <div class="main-image"></div>
+        <div class="main-question">
+            <h2>What makes CBL different from other leagues?</h2>
+        </div>
+        <div class="content-container">
+            <div class="col"><span class="h-icon fa fa-users"></span><span class="desc-student">We're completely student-run</span></div>
+            <div class="col"><span class="h-icon fa fa-trophy"></span><span class="desc-teams">Teams are drafted every year from a pool of players that sign up</span></div>
+            <div class="col"><span class="h-icon fa fa-bullseye"></span><span class="desc-pickup">We play pick-up style. No refs, all honor.</span></div>
+        </div>
+        <div class="secondary-image"></div>
+        <div class="signup">
+            <h3>How can I sign up?</h3>
+            <p>Fill out your email in this form. Our season starts in Spring Quarter and we'll be emailing everybody on the list to gauge commitment to determine who makes the final 120-man player list.</p>
+        </div>
+    </div>
 </div>
 {% endblock %}

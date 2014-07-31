@@ -56,7 +56,7 @@
         <tbody>
             {% for g in player.gamelogs %}
             <tr>
-                <td>{{ g.get_date()|datetime }} <b>{{ g.get_team() }}</b> vs. {{ g.get_opponent() }}</td>
+                <td>{{ g.get_date()|datetime }} <strong>{{ g.get_team() }}</strong> vs. {{ g.get_opponent() }}</td>
                 <td>{{ g.fga }}</td>
                 <td>{{ g.fgm }}</td>
                 <td>{{ g.threes_a }}</td>

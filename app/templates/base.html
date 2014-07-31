@@ -4,31 +4,38 @@
 {% assets "style" %}
     <link rel="stylesheet" href="{{ ASSET_URL }}" />
 {% endassets %}
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 {% endblock %}
 {% block title %}Chicago Basketball League{% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
         <a class="navbar-brand"href="{{ url_for('main.home') }}">CBL</a>
+        <a href="#" id="open-menu" class="fa fa-bars fa-lg"></a>
     </div>
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav" id="nav-menu">
         <li><a href="{{ url_for('main.standings') }}">Standings</a></li>
         <li><a href="{{ url_for('main.schedule') }}">Schedule</a></li>
         <li class="teams">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Teams</a>
-            <ul class="dropdown-menu">
+            <a href="#">Teams</a>
+            <ul class="teamlist dropdown-menu">
             {% for name in teamnames|sort() %}
                 <li><a href="{{ url_for('main.team', team_name=name) }}">{{ name }}</a></li>
             {% endfor %}   
             </ul>
         </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Login</a></li>
     </ul>
-</div>
+</nav>
 {% endblock %}
 
 {% block content %}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{% assets "app" %}
+    <script src="{{ ASSET_URL }}"></script>
+{% endassets %}
 {% endblock %}

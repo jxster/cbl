@@ -1,92 +1,246 @@
-/* line 8 */
+/* line 17 */
 .navbar-default {
   background-color: #7d0101;
   border-color: #610000;
+  border-radius: 0;
+  margin-bottom: 0;
 }
-/* line 11 */
+/* line 23 */
+.navbar-default ul {
+  display: none;
+}
+/* line 26 */
 .navbar-default .navbar-brand {
   color: #f6eded;
 }
-/* line 13 */
+/* line 28 */
 .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
   color: white;
 }
-/* line 15 */
+/* line 30 */
 .navbar-default .navbar-text {
   color: #f6eded;
 }
-/* line 19 */
+/* line 33 */
+.navbar-default .navbar-nav > li {
+  padding-left: 15px;
+}
+/* line 36 */
 .navbar-default .navbar-nav > li > a {
   color: #f6eded;
 }
-/* line 21 */
+/* line 38 */
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
   color: white;
 }
-/* line 24 */
+/* line 41 */
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   color: white;
   background-color: #610000;
 }
-/* line 28 */
+/* line 45 */
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   color: white;
   background-color: #610000;
 }
-/* line 31 */
+/* line 48 */
 .navbar-default .navbar-toggle {
   border-color: #610000;
 }
-/* line 33 */
+/* line 50 */
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
   background-color: #610000;
 }
-/* line 35 */
+/* line 52 */
 .navbar-default .navbar-toggle .icon-bar {
   background-color: #f6eded;
 }
-/* line 37 */
+/* line 54 */
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
   border-color: #f6eded;
 }
-/* line 40 */
+/* line 57 */
 .navbar-default .navbar-link {
   color: #f6eded;
 }
-/* line 42 */
+/* line 59 */
 .navbar-default .navbar-link:hover {
   color: white;
 }
 
-@media (max-width: 767px) {
-  /* line 46 */
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #f6eded;
-  }
-  /* line 48 */
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
-    color: white;
-  }
-  /* line 51 */
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: white;
-    background-color: #610000;
-  }
+/* line 63 */
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+  color: #f6eded;
 }
-/* line 56 */
-.teams:hover {
-  background-color: #973333;
+/* line 65 */
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+  color: white;
+}
+/* line 68 */
+.navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+  color: white;
+  background-color: #610000;
 }
 
-/* line 60 */
-.teams:hover > .dropdown-menu {
-  display: block;
+/* line 72 */
+.navbar-header {
+  height: 50px;
+  position: relative;
 }
 
-/* line 64 */
-.navbar {
-  border-radius: 0;
+/* line 77 */
+#open-menu {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  float: right;
+  color: #f6eded;
+  display: inline;
+  right: 5%;
+}
+/* line 84 */
+#open-menu:hover {
+  text-decoration: none;
+  color: white;
+}
+
+/* line 90 */
+.navbar-right {
+  padding-right: 0px;
+  margin-right: 15px;
+}
+
+/* line 95 */
+html,
+body {
+  height: 100%;
+}
+
+/* line 100 */
+body {
+  background-color: rgba(240, 240, 240, 0.8);
+}
+
+/* line 104 */
+.main-banner,
+.main-question {
+  width: 100%;
+}
+
+/* line 109 */
+.main-image,
+.secondary-image {
+  height: 40vh;
+  width: 100%;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+
+/* line 120 */
+.main-image {
+  background-image: url("assets/main/ball1.jpg");
+}
+
+/* line 123 */
+.secondary-image {
+  background-image: url("assets/main/ball2.jpg");
+}
+
+/* line 126 */
+.main-question {
+  text-align: center;
+}
+
+/* line 129 */
+.content-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  text-align: center;
+}
+/* line 136 */
+.content-container .col {
+  padding: 10px;
+  margin-top: 5px;
+  flex: 1;
+  background-color: #7d0101;
+  position: relative;
+  height: 4em;
+}
+
+/* line 146 */
+span[class^="desc"] {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-size: 1.2em;
+  display: inline-block;
+  padding-left: 3em;
+  padding-right: .5em;
+  color: azure;
+}
+
+/* line 155 */
+.h-icon {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: azure;
+  position: absolute;
+  left: .8em;
+  font-size: 2em;
+}
+
+@media (min-width: 769px) {
+  /* line 165 */
+  #open-menu {
+    display: none;
+  }
+
+  /* line 171 */
+  .navbar-default > ul {
+    display: initial;
+  }
+
+  /* line 177 */
+  .teams:hover {
+    background-color: #973333;
+  }
+  /* line 180 */
+  .teams:hover .dropdown-menu {
+    display: block;
+  }
+
+  /* line 185 */
+  .content-container {
+    flex-direction: row;
+  }
+  /* line 187 */
+  .content-container .col {
+    height: 10em;
+    margin-right: 10px;
+  }
+  /* line 191 */
+  .content-container .col:last-child {
+    margin-right: 0;
+  }
+
+  /* line 197 */
+  .h-icon {
+    font-size: 2.5em;
+    left: .5em;
+  }
 }
 
 /* line 1 */
@@ -94,22 +248,5 @@
   max-width: 100%;
   max-height: 100%;
   border-radius: 50%;
-  border: .2em solid #7d0101;
 }
 
-/* line 8 */
-.stats > table > caption {
-  font-size: 2em;
-}
-
-/* line 1 */
-.roster {
-  float: left;
-  font-size: 1vmax;
-}
-
-/* line 6 */
-.schedule {
-  float: right;
-  font-size: .9vmax;
-}

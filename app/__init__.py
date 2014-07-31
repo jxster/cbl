@@ -44,6 +44,14 @@ def create_app(config_name):
         )
     )
 
+    env.register(
+        'app',
+        Bundle(
+            'home.js',
+            output='app.js'
+        )
+    )
+
     @app.template_filter('datetime')
     def format_gametime(value):
         return value.strftime('%m.%d.%Y %H:%M%p')
